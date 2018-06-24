@@ -20,7 +20,7 @@
                 <td>
                   <a href="edit.html">编辑</a>
                   &nbsp;&nbsp;
-                  <a href="javascript:window.confirm('Are you sure?')">删除</a>
+                  <a href="javascript:void(0)" @click="handelDelete(item.id)">删除</a>
                 </td>
               </tr>
             </tbody>
@@ -39,17 +39,38 @@ export default {
     };
   },
   mounted () {
-    // axios发送请求
-    axios.get('http://localhost:3000/heroes')
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-          this.list = res.data;
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // 加载列表
+    this.loadData();
+  },
+  methods:{
+    loadData() {// 获取数据的方法
+      // axios发送请求
+      axios.get('http://localhost:3000/heroes')
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data);
+            this.list = res.data;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      },
+    handelDelete(id) {// 删除数据的方法
+      // 删除提示
+      if(!confirm('是否确认删除数据')) {
+        return;  
+      }
+      // 发送请求,根据id删除数据
+      axios.delete(`http://localhost:3000/heroes/${id}`)
+        .then((res) => {
+          // 删除成功,刷新列表
+          this.loadData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>
