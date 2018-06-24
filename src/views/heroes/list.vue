@@ -1,7 +1,8 @@
 <template>
     <div>
       <h2 class="sub-header">英雄管理</h2>
-      <a class="btn btn-success" href="add.html">Add</a>
+      <router-link :to="{name: 'heroesadd'}" class="btn btn-success">添加</router-link>
+      <!-- <a class="btn btn-success" href="add.html">添加</a> -->
       <div class="table-responsive">
           <table class="table table-striped">
             <thead>
@@ -38,12 +39,12 @@ export default {
       list: []
     };
   },
-  mounted () {
+  mounted() {
     // 加载列表
     this.loadData();
   },
-  methods:{
-    loadData() {// 获取数据的方法
+  methods: {
+    loadData() { // 获取数据的方法
       // axios发送请求
       axios.get('http://localhost:3000/heroes')
         .then((res) => {
@@ -55,11 +56,11 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-      },
-    handelDelete(id) {// 删除数据的方法
+    },
+    handelDelete(id) { // 删除数据的方法
       // 删除提示
-      if(!confirm('是否确认删除数据')) {
-        return;  
+      if (!confirm('是否确认删除数据')) {
+        return;
       }
       // 发送请求,根据id删除数据
       axios.delete(`http://localhost:3000/heroes/${id}`)
