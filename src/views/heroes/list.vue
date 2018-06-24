@@ -19,7 +19,10 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.gender }}</td>
                 <td>
-                  <a href="edit.html">编辑</a>
+                  <!-- <router-link :to="'/heroes/edit/'+item.id">编辑</router-link> -->
+                  <!-- <a href="edit.html">编辑</a> -->
+                  <!-- <router-link :to="'/heroes/edit/'+item.id">编辑</router-link> -->
+                  <router-link :to="{name: 'heroesedit', params: {id:item.id}}">编辑</router-link>
                   &nbsp;&nbsp;
                   <a href="javascript:void(0)" @click="handelDelete(item.id)">删除</a>
                 </td>
